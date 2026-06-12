@@ -13,6 +13,7 @@ class Bid extends Model
         'bidder_id',
         'item_id',
         'bid_amount',
-        'status'
+        'status',
+        'receipt_number'
     ];
 }

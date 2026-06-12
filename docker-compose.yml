@@ -16,7 +16,7 @@ services:
       DB_DATABASE: laravel
       DB_USERNAME: sail
       DB_PASSWORD: password
-      API_KEY: bid-service-secret-2024
+      API_KEY: KEY-MHS-203
     depends_on:
       - mysql
   mysql:
