@@ -12,6 +12,8 @@ type Mutation {
     ): Bid @create
 }
 
+scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
 type Bid {
     id: ID!
     bidder_id: String!

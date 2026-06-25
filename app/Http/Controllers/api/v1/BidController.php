@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Bid;
@@ -25,7 +25,12 @@ class BidController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'data' => $bids
+            'message' => 'Data retrieved successfully',
+            'data' => $bids,
+            'meta' => [
+                'service_name' => 'Service Penawaran',
+                'api_version' => 'v1'
+            ]
         ], 200);
     }
 
@@ -53,13 +58,19 @@ class BidController extends Controller
         if (!$bid) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Data tidak ditemukan'
+                'message' => 'Data tidak ditemukan',
+                'errors' => null
             ], 404);
         }
 
         return response()->json([
             'status' => 'success',
-            'data' => $bid
+            'message' => 'Data retrieved successfully',
+            'data' => $bid,
+            'meta' => [
+                'service_name' => 'Service Penawaran',
+                'api_version' => 'v1'
+            ]
         ], 200);
     }
 
@@ -99,7 +110,8 @@ class BidController extends Controller
             if (!$userCheck->successful() || !$itemCheck->successful()) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Validasi ke service lain gagal'
+                    'message' => 'Validasi ke service lain gagal',
+                    'errors' => null
                 ], 403);
             }
 
@@ -116,7 +128,12 @@ class BidController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'data' => $bid
+            'message' => 'Data created successfully',
+            'data' => $bid,
+            'meta' => [
+                'service_name' => 'Service Penawaran',
+                'api_version' => 'v1'
+            ]
         ], 201);
     }
 }

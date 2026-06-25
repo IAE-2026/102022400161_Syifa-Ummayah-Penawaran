@@ -14,11 +14,13 @@ class ApiKeyMiddleware
         $apiKey = $request->header('x-iae-key');
         
         
-        $validKey = env('API_KEY', 'rahasia-bids-123');
+        $validKey = env('API_KEY', '102022400161');
 
         if ($apiKey !== $validKey) {
             return response()->json([
-                'message' => 'Unauthorized. API Key tidak valid atau tidak disertakan.'
+                'status' => 'error',
+                'message' => 'Unauthorized. API Key tidak valid atau tidak disertakan.',
+                'errors' => null
             ], 401); 
         }
 

@@ -10,15 +10,20 @@ services:
       APP_ENV: local
       APP_KEY: base64:QGy1oErtVYJ7wTp4oWAjfXDgdQ+As3wb3PuV88JxDoU=
       APP_DEBUG: "true"
+      APP_URL: "http://localhost:8000"
+      L5_SWAGGER_USE_ABSOLUTE_PATH: "false"
+      L5_SWAGGER_GENERATE_ALWAYS: "true"
       DB_CONNECTION: mysql
       DB_HOST: mysql
       DB_PORT: 3306
       DB_DATABASE: laravel
       DB_USERNAME: sail
       DB_PASSWORD: password
-      API_KEY: bid-service-secret-2024
+      API_KEY: "102022400161"
     depends_on:
       - mysql
+    command: >
+      bash -c "composer install --no-dev --optimize-autoloader --ignore-platform-reqs && php artisan l5-swagger:generate && php artisan migrate --force && apache2-foreground"
   mysql:
     image: 'mysql:8.0'
     ports:
