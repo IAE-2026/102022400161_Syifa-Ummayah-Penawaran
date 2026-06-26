@@ -21,9 +21,10 @@ services:
       DB_PASSWORD: password
       API_KEY: "102022400161"
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     command: >
-      bash -c "composer install --no-dev --optimize-autoloader --ignore-platform-reqs && php artisan l5-swagger:generate && php artisan migrate --force && apache2-foreground"
+      bash -c "composer install --no-dev --optimize-autoloader --ignore-platform-reqs && php artisan l5-swagger:generate && while ! php artisan migrate --force; do sleep 2; done && apache2-foreground"
   mysql:
     image: 'mysql:8.0'
     ports:
@@ -35,6 +36,11 @@ services:
       MYSQL_PASSWORD: 'password'
     volumes:
       - 'mysql_data:/var/lib/mysql'
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "sail", "-ppassword"]
+      interval: 5s
+      timeout: 10s
+      retries: 10
 volumes:
   mysql_data:
     driver: local

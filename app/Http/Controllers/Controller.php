@@ -14,7 +14,7 @@ use OpenApi\Annotations as OA;
  * securityScheme="ApiKeyAuth",
  * type="apiKey",
  * in="header",
- * name="x-api-key"
+ * name="x-iae-key"
  * )
  */
 abstract class Controller

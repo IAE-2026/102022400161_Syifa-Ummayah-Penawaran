@@ -11,7 +11,7 @@ class ApiKeyMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         
-        $apiKey = $request->header('x-iae-key');
+        $apiKey = trim($request->header('x-iae-key') ?? $request->header('x-api-key') ?? '');
         
         
         $validKey = env('API_KEY', '102022400161');
