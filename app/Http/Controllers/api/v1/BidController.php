@@ -14,9 +14,12 @@ class BidController extends Controller
         path: "/api/v1/bids",
         summary: "Ambil semua penawaran",
         security: [["ApiKeyAuth" => []]],
+        parameters: [
+            new OA\Parameter(name: "Accept", in: "header", required: true, schema: new OA\Schema(type: "string", default: "application/json"))
+        ],
         responses: [
-            new OA\Response(response: 200, description: "Success"),
-            new OA\Response(response: 401, description: "Unauthorized")
+            new OA\Response(response: 200, description: "Success", content: new OA\JsonContent()),
+            new OA\Response(response: 401, description: "Unauthorized", content: new OA\JsonContent())
         ]
     )]
     public function index()
@@ -44,11 +47,12 @@ class BidController extends Controller
                 in: "path",
                 required: true,
                 schema: new OA\Schema(type: "integer")
-            )
+            ),
+            new OA\Parameter(name: "Accept", in: "header", required: true, schema: new OA\Schema(type: "string", default: "application/json"))
         ],
         responses: [
-            new OA\Response(response: 200, description: "Success"),
-            new OA\Response(response: 404, description: "Not Found")
+            new OA\Response(response: 200, description: "Success", content: new OA\JsonContent()),
+            new OA\Response(response: 404, description: "Not Found", content: new OA\JsonContent())
         ]
     )]
     public function show($id)
@@ -78,6 +82,9 @@ class BidController extends Controller
         path: "/api/v1/bids",
         summary: "Kirim penawaran baru",
         security: [["ApiKeyAuth" => []]],
+        parameters: [
+            new OA\Parameter(name: "Accept", in: "header", required: true, schema: new OA\Schema(type: "string", default: "application/json"))
+        ],
         requestBody: new OA\RequestBody(
             required: true,
             content: new OA\JsonContent(
@@ -90,8 +97,8 @@ class BidController extends Controller
             )
         ),
         responses: [
-            new OA\Response(response: 201, description: "Created"),
-            new OA\Response(response: 403, description: "Forbidden")
+            new OA\Response(response: 201, description: "Created", content: new OA\JsonContent()),
+            new OA\Response(response: 403, description: "Forbidden", content: new OA\JsonContent())
         ]
     )]
     public function store(Request $request)
